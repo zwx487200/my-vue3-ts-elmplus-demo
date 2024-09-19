@@ -47,6 +47,13 @@ export const LogInAPI = (data: ReqUser): Res<ReqUser> =>
 export const LogOutAPI = (data: ReqUser): Res<ReqUser> =>
   instance.post("/user/logOut", data);
 
+// 修改用户信息
+export const UpdateUserAPI = (data: ReqUser): Res<ReqUser> =>
+  instance.post("/user/updateUserInfo", data);
+
+// 修改用户密码
+export const ResetPasswordAPI = (data: ReqUser): Res<ReqUser> =>
+  instance.post("/user/resetPasswordAPI", data);
 
 
 // // post请求，有参数,如传用户名和密码

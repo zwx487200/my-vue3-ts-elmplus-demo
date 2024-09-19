@@ -15,6 +15,7 @@
         />
       </div>
       <button  @click = "signIn">登入</button>
+      <button  @click = "updatePassword">忘记密码</button>
     </form>
   </div>
 </template>
@@ -22,13 +23,12 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import router from "../router";
-import {LogInAPI} from "../request/api";
+import {LogInAPI,ResetPasswordAPI} from "../request/api";
 import { useStore } from "vuex";
 
 const store = useStore();
 const username=ref("");
 const password=ref("");
-const registerSuccess=ref(false);
 
 function signIn() {
   const user = ref({
@@ -38,25 +38,22 @@ function signIn() {
   LogInAPI(user.value).then((res: any)=>{
       console.log(res.code);
       if ('0'==res.code) {
-        console.log("chakan-------------start-----------------stroe")
-        console.log(store.state.isLoginStatus)
         store.commit("updateLoginStatusAndToken" ,{
           isLoginStatus: true,
           user: res.data  
         });
-        sessionStorage.setItem('user', res.data);
-        console.log("chakan------------ end -----------------stroe")
-        console.log(store.state.isLoginStatus)
-        console.log(store.state.user)
-        const user1111 = sessionStorage.getItem('user');
-        console.log(user1111)
-
-
+        console.log("user1111-----------"+JSON.stringify(res.data));
+        debugger;
+        localStorage.setItem('user', JSON.stringify(res.data));
         router.push('/about');
       } else {
-        console.log(res.message);
+        alert(res.message);
       }
     })
+}
+
+function updatePassword() {
+  alert("忘记密码功能还未实现");
 }
 </script>
 

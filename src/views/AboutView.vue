@@ -33,36 +33,14 @@
             {{ currentTime }}
           </div>
           <el-avatar class="avatartopright"> user </el-avatar>
-          <!-- <div>
-            <el-text class="mx-1" >{{user.username}}</el-text>
-          </div> -->
-          <!-- <el-text class="mx-1" style="position: fixed;top: 15px;right: 50px;width: 40px;height: 40px;" >
-            {{user.username}}
-          </el-text>
-          <el-icon :size="20" style="position: fixed;top: 15px;right: 10px;">
-            <ArrowDown />
-          </el-icon> -->
-
-
-          <!-- <el-dropdown split-button type="primary">
-            {{user.username}}
-            <template #dropdown>
-              <el-dropdown-menu>
-                <el-dropdown-item>个人设置</el-dropdown-item>
-                <el-dropdown-item>退出</el-dropdown-item>
-              </el-dropdown-menu>
-            </template>
-          </el-dropdown> -->
-
           <el-dropdown split-button type="primary" style="position: fixed;top: 10px;right: 10px;">
             <span>
               {{user.username?user.username:'username!'}}
-              
             </span>
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item>个人设置</el-dropdown-item>
-                <el-dropdown-item>退出</el-dropdown-item>
+                <el-dropdown-item @click="updateUserInfo">个人设置</el-dropdown-item>
+                <el-dropdown-item @click="logOut">退出</el-dropdown-item>
               </el-dropdown-menu>
             </template>
           </el-dropdown>
@@ -83,17 +61,26 @@ import {
   Setting,
 } from "@element-plus/icons-vue";
 import { defineComponent, onMounted, onUnmounted, ref } from 'vue';
-import { useStore } from "vuex";
-const store = useStore();
-const user = sessionStorage.getItem('user');
-console.log(user)
+import {LogOutAPI} from "../request/api";
 
-
+const user = JSON.parse(localStorage.getItem('user'));
 const currentTime = ref('');
 
 const updateTime = () => {
   const now = new Date();
   currentTime.value = now.toLocaleTimeString();
+};
+
+const logOut = () => {
+  LogOutAPI(user).then(() => {
+    localStorage.removeItem('user');
+    router.push('/');
+  });
+};
+
+const updateUserInfo = () => {
+  // TODO: 跳转到个人信息修改页面
+  router.push('/userInfo');
 };
 
 const timer = setInterval(updateTime, 1000);
@@ -107,10 +94,8 @@ onUnmounted(() => {
 });
 
 const handleOpen = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath);
 };
 const handleClose = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath);
 };
 const goHome = () => {
   router.push('/');
