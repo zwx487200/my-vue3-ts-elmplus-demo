@@ -4,6 +4,7 @@ import AboutView from "../views/AboutView.vue";
 import LoginView from "../views/LoginView.vue";
 import RegisterView from "../views/RegisterView.vue";
 import UserInfoView from "../views/UserInfoView.vue";
+import TouristView from "../views/TouristView.vue";
 
 
 const routes: Array<RouteRecordRaw> = [
@@ -12,6 +13,9 @@ const routes: Array<RouteRecordRaw> = [
   { path: "/login", name: "login", component: LoginView, },
   { path: "/register", name: "register", component: RegisterView, },
   { path: "/userInfo", name: "userInfo", component: UserInfoView, },
+  { path: "/tourist", name: "tourist", component: TouristView, },
+  // Add more routes as needed...
+
 ];
 
 const router = createRouter({

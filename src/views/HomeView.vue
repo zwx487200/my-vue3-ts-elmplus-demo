@@ -4,6 +4,7 @@
       <h1>这是你的主页</h1>
       <button @click="goTologin">登录</button>
       <button @click="goToRegister">还没有账号？去注册</button>
+      <button @click="goToSeeSee">我是游客，随便看看</button>
     </div>
   </div>
 </template>
@@ -15,6 +16,9 @@ const goTologin = () => {
 };
 const goToRegister = () => {
   router.push('/register');
+};
+const goToSeeSee = () => {
+  router.push('/tourist');
 };
 </script>
 <style scoped>
