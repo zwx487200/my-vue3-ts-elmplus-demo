@@ -17,6 +17,16 @@ interface ReqUser {
   captcha: string
 }
 
+interface ReqCharacter {
+  characterId: string
+  name: string
+  nameEn: string
+  role: string
+  introduction: string
+  profilePicture: string
+  userId: string
+}
+
 
 // 一般情况下响应数据返回的这三个参数，
 // 但不排除后端返回其它的可能性，
@@ -54,6 +64,10 @@ export const UpdateUserAPI = (data: ReqUser): Res<ReqUser> =>
 // 修改用户密码
 export const ResetPasswordAPI = (data: ReqUser): Res<ReqUser> =>
   instance.post("/user/resetPasswordAPI", data);
+
+// 获取角色信息
+export const GetCharacterAPI = (data: ReqCharacter): Res<ReqCharacter> =>
+  instance.post("/character/queryCharacterList", data);
 
 
 // // post请求，有参数,如传用户名和密码
