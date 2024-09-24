@@ -15,6 +15,7 @@ import shibacengdiyu from "../views/shibacengdiyu.vue";
 import wangsicheng from "../views/wangsicheng.vue";
 import wangxiangtai from "../views/wangxiangtai.vue";
 import yanwangdian from "../views/yanwangdian.vue";
+import characterInfo from "../views/CharacterInfo.vue";
 
 
 const routes: Array<RouteRecordRaw> = [
@@ -23,6 +24,7 @@ const routes: Array<RouteRecordRaw> = [
   { path: "/login", name: "login", component: LoginView, },
   { path: "/register", name: "register", component: RegisterView, },
   { path: "/userInfo", name: "userInfo", component: UserInfoView, },
+  { path: "/characterInfo/:id", name: "characterInfo", component: characterInfo, },
   {
     path: "/tourist",
     name: "tourist",
@@ -109,6 +111,7 @@ const routes: Array<RouteRecordRaw> = [
             title: "wangxiangtai"
           }
         },
+
 
       ]
   },

@@ -25,6 +25,8 @@ interface ReqCharacter {
   introduction: string
   profilePicture: string
   userId: string
+  pageSize: number
+  pageNum: number
 }
 
 
@@ -34,6 +36,7 @@ interface ItypeAPI<T> {
   data: T,//请求的数据，用泛型
   msg: string | null // 返回状态码的信息，如请求成功等
   code: number //返回后端自定义的200，404，500这种状态码
+  count: number //返回查询列表的总数量
 }
 
 
