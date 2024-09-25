@@ -24,7 +24,7 @@ const routes: Array<RouteRecordRaw> = [
   { path: "/login", name: "login", component: LoginView, },
   { path: "/register", name: "register", component: RegisterView, },
   { path: "/userInfo", name: "userInfo", component: UserInfoView, },
-  { path: "/characterInfo/:id", name: "characterInfo", component: characterInfo, },
+  { path: "/characterInfo/:id/:operate", name: "characterInfo", component: characterInfo, },
   {
     path: "/tourist",
     name: "tourist",

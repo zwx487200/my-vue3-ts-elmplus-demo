@@ -69,8 +69,11 @@ export const ResetPasswordAPI = (data: ReqUser): Res<ReqUser> =>
   instance.post("/user/resetPasswordAPI", data);
 
 // 获取角色信息
-export const GetCharacterAPI = (data: ReqCharacter): Res<ReqCharacter> =>
+export const GetCharacterListAPI = (data: ReqCharacter): Res<ReqCharacter> =>
   instance.post("/character/queryCharacterList", data);
+
+export const GetCharacterAPI = (data: ReqCharacter): Res<ReqCharacter> =>
+  instance.post("/character/queryCharacter", data);
 
 
 // // post请求，有参数,如传用户名和密码

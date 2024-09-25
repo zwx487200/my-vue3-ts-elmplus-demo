@@ -33,7 +33,7 @@
     <el-table-column fixed="right" prop="characterId"  label="操作" min-width="120">
       <template #default="scope">
         <el-button link type="primary" size="small" @click="gotoCharacterInfo(scope.row) ">详情</el-button>
-        <el-button link type="primary" size="small">修改</el-button>
+        <el-button link type="primary" size="small" @click="updateCharacterInfo(scope.row)">修改</el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -56,7 +56,7 @@
 
 
 <script lang="ts" setup>
-import {GetCharacterAPI } from "../request/api";
+import {GetCharacterListAPI } from "../request/api";
 import { ref , onMounted} from 'vue';
 import { Delete, Edit, Search, Share, Upload } from '@element-plus/icons-vue'
 import type { ComponentSize } from 'element-plus'
@@ -98,7 +98,7 @@ onMounted(() => {
 })
 
 function GetCharacter() {
-  GetCharacterAPI(character.value).then(response => {
+  GetCharacterListAPI(character.value).then(response => {
     characterList.value = response.data;
     characterSie.value = response.count;
     console.log("response.data: ", response.data);
@@ -125,12 +125,18 @@ function clearSelect(){
 
 function addCharacter(){
   console.log("我要添加人物");
+  router.push({ name: "characterInfo", params: {id: "" ,operate:"add"} });
   // 跳转到添加人物的页面
 }
 
 const gotoCharacterInfo = (row:any) => { 
   console.log("我要跳转到人物详情页"+row.characterId);
-  router.push({ path: "/characterInfo", query: { id: row.characterId } });
+  router.push({ name: "characterInfo", params: { id: row.characterId ,operate:"query"} });
+}
+
+const updateCharacterInfo = (row:any) => { 
+  console.log("我要跳转到人物详情页"+row.characterId);
+  router.push({ name: "characterInfo", params: { id: row.characterId ,operate:"update"} });
 }
 
 </script>

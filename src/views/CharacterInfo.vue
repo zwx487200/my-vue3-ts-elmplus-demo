@@ -1,36 +1,71 @@
 <template>
-  <!-- <el-form
+  <el-form
     :label-position="labelPosition"
     label-width="auto"
     :model="formLabelAlign"
     style="max-width: 600px"
   >
-    <el-form-item label="Name" :label-position="itemLabelPosition">
-      <el-input v-model="formLabelAlign.name" />
+    <el-form-item label="序号" :label-position="itemLabelPosition">
+      <el-input v-model="character.characterId" />
     </el-form-item>
-    <el-form-item label="Activity zone" :label-position="itemLabelPosition">
-      <el-input v-model="formLabelAlign.region" />
+    <el-form-item label="名字" :label-position="itemLabelPosition">
+      <el-input v-model="character.name" />
     </el-form-item>
-    <el-form-item label="Activity form" :label-position="itemLabelPosition">
-      <el-input v-model="formLabelAlign.type" />
+    <el-form-item label="描述" :label-position="itemLabelPosition">
+      <el-input v-model="character.introduction" />
     </el-form-item>
-  </el-form> -->
+  </el-form>
 </template>
 
 <script lang="ts" setup>
 import { reactive, ref ,onMounted} from 'vue'
 import type { FormItemProps, FormProps } from 'element-plus'
+import {GetCharacterAPI } from "../request/api";
+import { useRoute } from 'vue-router';
 
 
-onMounted(() => {
-  console.log("我是云南的云南庐江的");
+const character = ref({
+  characterId: "",
+  name: "",
+  nameEn: "",
+  role: "",
+  introduction: "",
+  profilePicture: "",
+  userId: "",
+  pageSize: 10,
+  pageNum: 1,
 })
 
-// const labelPosition = ref<FormProps['labelPosition']>('right')
-// const itemLabelPosition = ref<FormItemProps['labelPosition']>('')
-// const formLabelAlign = reactive({
-//   name: '',
-//   region: '',
-//   type: '',
-// })
+const type = ref("query")
+
+onMounted(() => {
+  // 查询详情
+  const route = useRoute();
+  console.log("我是" + route.params);
+  debugger;
+
+  type.value = route.params.operate;
+  console.log("我是" + route.params);
+  if (type.value != 'add') {
+    console.log("我是云南的云南庐江的" + route.params.id);
+    character.value.characterId = String(route.params.id);
+    GetCharacterAPI(character.value).then(response => {
+      console.log("response.data: ", response.data);
+      character.value = response.data[0];
+      console.log("response.data: ", response.data);
+    }).catch(error => {
+      console.error("Error fetching character: ", error);
+    });
+  } else{
+     console.log("我是添加的添加的");
+  }
+})
+
+const labelPosition = ref<FormProps['labelPosition']>('right')
+const itemLabelPosition = ref<FormItemProps['labelPosition']>('')
+const formLabelAlign = reactive({
+  name: '',
+  region: '',
+  type: '',
+})
 </script>
