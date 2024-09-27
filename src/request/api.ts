@@ -75,6 +75,15 @@ export const GetCharacterListAPI = (data: ReqCharacter): Res<ReqCharacter> =>
 export const GetCharacterAPI = (data: ReqCharacter): Res<ReqCharacter> =>
   instance.post("/character/queryCharacter", data);
 
+export const UpdateCharacterAPI = (data: ReqCharacter): Res<ReqCharacter> =>
+  instance.post("/character/updateCharacter", data);
+
+export const DeleteCharacterAPI = (data: ReqCharacter): Res<ReqCharacter> =>
+  instance.post("/character/deleteCharacter", data);
+
+export const AddCharacterAPI = (data: ReqCharacter): Res<ReqCharacter> =>
+  instance.post("/character/saveCharacter", data);
+
 
 // // post请求，有参数,如传用户名和密码
 // export const loginAPI = (data: ReqLogin): Res<string> =>

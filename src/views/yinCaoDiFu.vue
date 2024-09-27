@@ -34,6 +34,7 @@
       <template #default="scope">
         <el-button link type="primary" size="small" @click="gotoCharacterInfo(scope.row) ">详情</el-button>
         <el-button link type="primary" size="small" @click="updateCharacterInfo(scope.row)">修改</el-button>
+        <el-button link type="primary" size="small" @click="deleteCharacterInfo(scope.row)">删除</el-button>
       </template>
     </el-table-column>
   </el-table>
@@ -125,7 +126,7 @@ function clearSelect(){
 
 function addCharacter(){
   console.log("我要添加人物");
-  router.push({ name: "characterInfo", params: {id: "" ,operate:"add"} });
+  router.push({ name: "addCharacterInfo", params: {operate:"add"} });
   // 跳转到添加人物的页面
 }
 
@@ -137,6 +138,11 @@ const gotoCharacterInfo = (row:any) => {
 const updateCharacterInfo = (row:any) => { 
   console.log("我要跳转到人物详情页"+row.characterId);
   router.push({ name: "characterInfo", params: { id: row.characterId ,operate:"update"} });
+}
+
+const deleteCharacterInfo = (row:any) => { 
+  console.log("我要删除人物"+row.characterId);
+  // 跳转到确认删除的页面
 }
 
 </script>

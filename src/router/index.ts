@@ -16,6 +16,7 @@ import wangsicheng from "../views/wangsicheng.vue";
 import wangxiangtai from "../views/wangxiangtai.vue";
 import yanwangdian from "../views/yanwangdian.vue";
 import characterInfo from "../views/CharacterInfo.vue";
+import HeadFileUpload from "../views/HeadFileUpload.vue";
 
 
 const routes: Array<RouteRecordRaw> = [
@@ -25,6 +26,8 @@ const routes: Array<RouteRecordRaw> = [
   { path: "/register", name: "register", component: RegisterView, },
   { path: "/userInfo", name: "userInfo", component: UserInfoView, },
   { path: "/characterInfo/:id/:operate", name: "characterInfo", component: characterInfo, },
+  { path: "/characterInfo/:operate", name: "addCharacterInfo", component: characterInfo, },
+  { path: "/headFileUpload", name: "headFileUpload", component: HeadFileUpload, },
   {
     path: "/tourist",
     name: "tourist",
@@ -115,6 +118,7 @@ const routes: Array<RouteRecordRaw> = [
 
       ]
   },
+
 ]
 
 const router = createRouter({
