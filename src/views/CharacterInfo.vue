@@ -4,9 +4,10 @@
     label-width="auto"
     :model="formLabelAlign"
     style="max-width: 600px"
+    @submit.native.prevent
   >
     <el-form-item label="头像" :label-position="itemLabelPosition">
-      <HeadFileUpload limit="1" ></HeadFileUpload>
+      <HeadFileUpload  ></HeadFileUpload>
     </el-form-item>
     <el-form-item label="序号" :label-position="itemLabelPosition" v-show="!isadd">
       <el-input v-model="character.characterId" />
@@ -17,8 +18,8 @@
     <el-form-item label="描述" :label-position="itemLabelPosition">
       <el-input v-model="character.introduction" />
     </el-form-item>
-    <ChildDemo v-model="countModel"></ChildDemo>
-    <el-button @click="sure">确定 </el-button>
+     <ChildDemo v-model="countModel1"></ChildDemo> 
+     <el-button @click="sure">确定 </el-button>
   </el-form>
 </template>
 
@@ -41,7 +42,7 @@ const character = ref({
 
 const isadd = ref(false);
 
-const countModel = ref(5);
+const countModel1 = ref(5);
 
 const type = ref("query")
 
