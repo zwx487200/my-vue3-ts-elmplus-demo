@@ -5,6 +5,9 @@
     :model="formLabelAlign"
     style="max-width: 600px"
   >
+    <el-form-item label="头像" :label-position="itemLabelPosition">
+      <HeadFileUpload limit="1" ></HeadFileUpload>
+    </el-form-item>
     <el-form-item label="序号" :label-position="itemLabelPosition" v-show="!isadd">
       <el-input v-model="character.characterId" />
     </el-form-item>
@@ -14,6 +17,7 @@
     <el-form-item label="描述" :label-position="itemLabelPosition">
       <el-input v-model="character.introduction" />
     </el-form-item>
+    <ChildDemo v-model="countModel"></ChildDemo>
     <el-button @click="sure">确定 </el-button>
   </el-form>
 </template>
@@ -23,8 +27,6 @@ import { reactive, ref ,onMounted} from 'vue'
 import type { FormItemProps, FormProps } from 'element-plus'
 import {GetCharacterAPI,AddCharacterAPI } from "../request/api";
 import { useRoute } from 'vue-router';
-
-
 const character = ref({
   characterId: "",
   name: "",
@@ -35,19 +37,18 @@ const character = ref({
   userId: "",
   pageSize: 10,
   pageNum: 1,
-})
+}) 
 
 const isadd = ref(false);
+
+const countModel = ref(5);
 
 const type = ref("query")
 
 onMounted(() => {
   // 查询详情
   const route = useRoute();
-  console.log("我是" + route.params);
-
   type.value = route.params.operate;
-  console.log("我是" + route.params);
   if (type.value != 'add') {
     console.log("我是云南的云南庐江的" + route.params.id);
     character.value.characterId = String(route.params.id);
@@ -84,6 +85,18 @@ const sure = () => {
     }).catch(error => {
       console.error("Error fetching character: ", error);
     });
+  } else{
+    // 编辑
+    // TODO: 编辑方法
+    console.log("我是编辑的编辑的");
+    console.log(character.value);
+    // EditCharacterAPI(character.value).then(response => {
+    //   console.log("response.data: ", response.data);
+    //   character.value = response.data[0];
+    //   console.log("response.data: ", response.data);
+    // }).catch(error => {
+    //   console.error("Error fetching character: ", error);
+    // });
   }
 }
 </script>

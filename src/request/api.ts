@@ -84,24 +84,4 @@ export const DeleteCharacterAPI = (data: ReqCharacter): Res<ReqCharacter> =>
 export const AddCharacterAPI = (data: ReqCharacter): Res<ReqCharacter> =>
   instance.post("/character/saveCharacter", data);
 
-
-// // post请求，有参数,如传用户名和密码
-// export const loginAPI = (data: ReqLogin): Res<string> =>
-//   instance.post("/admin/login", data);
-
-// // post请求 ，没参数，但要路径传参
-// export const StatusAPI = (data: ReqStatus): Res<null> =>
-//   instance.post(`/productCategory?ids=${data.id}&navStatus=${data.navStatus}`);
-
-
-// //  get请求，没参数，
-// export const FlashSessionListApi = (): Res<null> =>
-//   instance.get("/flashSession/list");
-
-// // get请求，有参数，路径也要传参  (也可能直接在这写类型，不过不建议,大点的项目会维护一麻烦)
-// export const ProductCategoryApi = (params: { parentId: number }): any =>
-//   instance.get(`/productCategory/list/${params.parentId}`, { params });
-
-// // get请求，有参数，(如果你不会写类型也可以使用any,不过不建议,因为用了之后 和没写TS一样)
-// export const AdminListAPI = (params: any): any =>
-//   instance.get("/admin/list", { params });
+// export const FileUploadAPI = 

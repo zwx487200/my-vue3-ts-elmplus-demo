@@ -11,6 +11,18 @@ const request = axios.create({
   },
 })
 
+const fileRqueest = axios.create({
+  baseURL: "/api",// 所有的请求地址前缀部分
+  timeout: 80000, // 请求超时时间(毫秒)
+  withCredentials: true,// 异步请求携带cookie
+  headers: {
+    'Content-Type': 'application/from-data',
+    'token': 'x-auth-token',//一开始就要token
+    'X-Requested-With': 'XMLHttpRequest',
+  },
+})
+
+
 // request拦截器
 request.interceptors.request.use(
   config => {

@@ -1,10 +1,9 @@
 <template>
   <div>
     <el-upload
-      action="#"
+      action="http://localhost:8080/file/upload"
       :headers="headers"
       :list-type="listType"
-      :http-request="uploadAction"
       :on-exceed="handleExceed"
       :on-remove="handleRemove"
       :before-upload="beforeUpload"
@@ -114,25 +113,25 @@ const handleExceed = (files, fileList) => {
   console.log('fileList', fileList);
 };
 // 上传请求
-const uploadAction = (option) => {
-  // let formData = new FormData();
-  // const url = '';
-  // globObj.$axios({
-  //   url: url,
-  //   method: 'post',
-  //   transformRequest: [function(data, headers) {
-  //     // 去除post请求默认的Content-Type
-  //     delete headers['Content-Type']
-  //     return data
-  //   }],
-  //   data: formData,
-  //   timeout: 300000
-  // }).then(res => {
-  //   ElMessage.success('资产添加成功');
-  // }).catch((err) => {
-  //   console.log(err);
-  // });
-}
+// const uploadAction = (option) => {
+//   let formData = new FormData();
+//   const url = '';
+//   globObj.$axios({
+//     url: url,
+//     method: 'post',
+//     transformRequest: [function(data, headers) {
+//       // 去除post请求默认的Content-Type
+//       delete headers['Content-Type']
+//       return data
+//     }],
+//     data: formData,
+//     timeout: 300000
+//   }).then(res => {
+//     ElMessage.success('资产添加成功');
+//   }).catch((err) => {
+//     console.log(err);
+//   });
+// }
 // 格式大小的限制 ok
 const beforeUpload = (file) => {
   let isJPG = false,
@@ -152,7 +151,7 @@ const beforeUpload = (file) => {
 // 文件上传成功时的钩子
 const uploadSuccess = (response, file, fileList) => {
   // 上传成功之后后台返回的数据
-  console.log('uploadSuccess', uploadSuccess);
+  console.log('uploadSuccess', response);
 };
 const uploadProgress = (e, file, fileList) => {
   console.log('uploadProgress', uploadProgress)
