@@ -70,11 +70,9 @@ const disabled = ref(false)
 const characterSie = ref(0)
 
 const handleSizeChange = (val: number) => {
-  console.log(`${val} items per page`)
   GetCharacter();
 }
 const handleCurrentChange = (val: number) => {
-  console.log(`current page: ${val}`)
   GetCharacter();
 }
 
@@ -94,7 +92,6 @@ const characterList = ref([]);
 
 
 onMounted(() => {
-  console.log("表哥，我来咯");
   GetCharacter();
 })
 
@@ -102,8 +99,6 @@ function GetCharacter() {
   GetCharacterListAPI(character.value).then(response => {
     characterList.value = response.data;
     characterSie.value = response.count;
-    console.log("response.data: ", response.data);
-    console.log("characterList: ", characterList.value);
   }).catch(error => {
     console.error("Error fetching character: ", error);
   });
@@ -125,24 +120,19 @@ function clearSelect(){
 }
 
 function addCharacter(){
-  console.log("我要添加人物");
   router.push({ name: "addCharacterInfo", params: {operate:"add"} });
   // 跳转到添加人物的页面
 }
 
 const gotoCharacterInfo = (row:any) => { 
-  console.log("我要跳转到人物详情页"+row.characterId);
   router.push({ name: "characterInfo", params: { id: row.characterId ,operate:"query"} });
 }
 
 const updateCharacterInfo = (row:any) => { 
-  console.log("我要跳转到人物详情页"+row.characterId);
   router.push({ name: "characterInfo", params: { id: row.characterId ,operate:"update"} });
 }
 
 const deleteCharacterInfo = (row:any) => { 
-  console.log("我要删除人物"+row.characterId);
-  // 跳转到确认删除的页面
 }
 
 </script>

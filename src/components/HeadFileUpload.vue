@@ -72,14 +72,11 @@ onMounted(() => {
   if (fileListFather.value) {
     fileList.value = fileListFather.value;
   }
-  console.log("父节点传来的值"+fileList.value);
 })
 const dialogImageUrl = ref('')
 const dialogVisible = ref(false)
 const disabled = ref(false)
 const handleRemove = (file: UploadFile) => {
-  console.log(file)
-  debugger;
   fileList.value = fileList.value.filter(f => f.uid!== file.uid);
 }
 const handlePictureCardPreview = (file: UploadFile) => {
@@ -97,7 +94,6 @@ const handleAvatarSuccess: UploadProps['onSuccess'] = (
   response,
   uploadFile
 ) => {
-  console.log('avatar success:', response, uploadFile)
   // 上传头像成功后，将response里面返回的值添加到fileList里面
   // todo 这边使用后端返回的url，会获取不到，前端上传文件的时候会生成一个blob:http://localhost:8081/***** 
   // 这边不懂，但是又不能把前端这个blob的给后端
@@ -107,13 +103,11 @@ const handleAvatarSuccess: UploadProps['onSuccess'] = (
     url: response.url,
   })
   // 移除默认头像
-  debugger;
   const defaultAvatar = fileList.value.find(f => f.name === '默认头像')
   if (defaultAvatar) {
     fileList.value = fileList.value.filter(f => f.name!== '默认头像')
   }
   //
-  console.log(fileList.value)
 }
 
 const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {

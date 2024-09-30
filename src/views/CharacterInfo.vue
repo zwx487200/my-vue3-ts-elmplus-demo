@@ -57,35 +57,24 @@ onMounted(() => {
   const route = useRoute();
   type.value = route.params.operate;
   if (type.value != 'add') {
-    console.log("我是云南的云南庐江的" + route.params.id);
     character.value.characterId = String(route.params.id);
     GetCharacterAPI(character.value).then(response => {
-      console.log("response.data: ", response.data);
       character.value = response.data[0];
       // 如果用户没有头像，给用户赋值默认头像
       if (!character.value.profilePicture) {
         character.value.profilePicture = '../image/默认头像.jpeg';
       } else {
-        debugger;
-        console.log("----------------------------------");
-        console.log(character.value.profilePicture);
-        console.log(fileList.value);
         // 如果存在头像，删除默认头像，添加用户头像
         fileList.value = [{
           name: '用户头像',
           url: require("../image/e5656579-2e08-4f26-ba03-69c49a75539b.jpg"),
         }];
-        console.log("+++++++++++++++++++++++++++++++++++");
-        console.log(fileList.value);
-        debugger;
       }
       //fileList.push(url: character.value.profilePicture);
-      console.log("response.data: ", response.data);
     }).catch(error => {
       console.error("Error fetching character: ", error);
     });
   } else{
-     console.log("我是添加的添加的");
      isadd.value= true;
   }
 })
@@ -100,26 +89,17 @@ const formLabelAlign = reactive({
 })
 
 const sure = () => {
-  console.log(character.value);
   if (isadd.value){
     // 新增
     // TODO: 新增方法
     AddCharacterAPI(character.value).then(response => {
-      console.log("response.data: ", response.data);
       character.value = response.data[0];
-      console.log("response.data: ", response.data);
     }).catch(error => {
       console.error("Error fetching character: ", error);
     });
   } else{
-    // 编辑
-    // TODO: 编辑方法
-    console.log("我是编辑的编辑的");
-    console.log(character.value);
     UpdateCharacterAPI(character.value).then(response => {
-      console.log("response.data: ", response.data);
       character.value = response.data[0];
-      console.log("response.data: ", response.data);
     }).catch(error => {
       console.error("Error fetching character: ", error);
     });

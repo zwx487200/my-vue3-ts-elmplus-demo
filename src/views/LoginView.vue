@@ -36,14 +36,11 @@ function signIn() {
         password: password.value
       });
   LogInAPI(user.value).then((res: any)=>{
-      console.log(res.code);
       if ('0'==res.code) {
         store.commit("updateLoginStatusAndToken" ,{
           isLoginStatus: true,
           user: res.data  
         });
-        console.log("user1111-----------"+JSON.stringify(res.data));
-        debugger;
         localStorage.setItem('user', JSON.stringify(res.data));
         router.push('/about');
       } else {
