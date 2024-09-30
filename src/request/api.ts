@@ -84,4 +84,6 @@ export const DeleteCharacterAPI = (data: ReqCharacter): Res<ReqCharacter> =>
 export const AddCharacterAPI = (data: ReqCharacter): Res<ReqCharacter> =>
   instance.post("/character/saveCharacter", data);
 
+  
+
 // export const FileUploadAPI = 
