@@ -28,7 +28,7 @@ const routes: Array<RouteRecordRaw> = [
   { path: "/userInfo", name: "userInfo", component: UserInfoView, },
   { path: "/characterInfo/:id/:operate", name: "characterInfo", component: characterInfo, },
   { path: "/characterInfo/:operate", name: "addCharacterInfo", component: characterInfo, },
-  { path: "/headFileUpload", name: "headFileUpload", component: HeadFileUpload, },
+  // { path: "/headFileUpload", name: "headFileUpload", component: HeadFileUpload, },
   { path: "/FatherDemo", name: "fatherDemo", component: FatherDemo },
   {
     path: "/tourist",

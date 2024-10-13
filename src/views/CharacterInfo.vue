@@ -7,7 +7,7 @@
     @submit.native.prevent
   >
     <el-form-item label="头像" :label-position="itemLabelPosition">
-      <HeadFileUpload  ></HeadFileUpload>
+      <HeadFileUpload limit="1" v-model="fileList" ></HeadFileUpload>
     </el-form-item>
     <el-form-item label="序号" :label-position="itemLabelPosition" v-show="!isadd">
       <el-input v-model="character.characterId" />
@@ -18,16 +18,17 @@
     <el-form-item label="描述" :label-position="itemLabelPosition">
       <el-input v-model="character.introduction" />
     </el-form-item>
-     <ChildDemo v-model="countModel1"></ChildDemo> 
      <el-button @click="sure">确定 </el-button>
   </el-form>
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref ,onMounted} from 'vue'
+import { reactive, ref ,onMounted,onBeforeMount} from 'vue'
 import type { FormItemProps, FormProps } from 'element-plus'
 import {GetCharacterAPI,AddCharacterAPI } from "../request/api";
 import { useRoute } from 'vue-router';
+import type { UploadProps, UploadUserFile } from 'element-plus'
+
 const character = ref({
   characterId: "",
   name: "",
@@ -39,6 +40,13 @@ const character = ref({
   pageSize: 10,
   pageNum: 1,
 }) 
+
+const fileList = ref<UploadUserFile[]>([
+  {
+    name:"默认头像",
+    url: require('.././image/默认头像.jpeg'),
+  }
+]);
 
 const isadd = ref(false);
 
@@ -56,6 +64,18 @@ onMounted(() => {
     GetCharacterAPI(character.value).then(response => {
       console.log("response.data: ", response.data);
       character.value = response.data[0];
+      if(character.value.profilePicture!="" || character.value.profilePicture !=null){
+        fileList.value.length = 0;
+        console.log("+++++++++++++"+character.value.profilePicture)
+       
+        fileList.value.push({
+          name: character.value.profilePicture,
+          // url: require(character.value.profilePicture),
+          url: require('.././image/'+`${character.value.profilePicture}`),
+        })
+        console.log("33333333333333"+fileList.value[0])
+
+      }
       console.log("response.data: ", response.data);
     }).catch(error => {
       console.error("Error fetching character: ", error);
@@ -79,10 +99,12 @@ const sure = () => {
   if (isadd.value){
     // 新增
     // TODO: 新增方法
+    console.log()
+    character.value.profilePicture = fileList.value[0].url;
     AddCharacterAPI(character.value).then(response => {
       console.log("response.data: ", response.data);
-      character.value = response.data[0];
-      console.log("response.data: ", response.data);
+      character.value = response.data;
+      console.log("response.data: ", character.value);
     }).catch(error => {
       console.error("Error fetching character: ", error);
     });

@@ -36,10 +36,8 @@
     });
 
     function logOutAndClearToken()  {
-      console.log(store.state.user)
       const user = store.state.user;
       const isLoginStatus = store.state.isLoginStatus;
-      console.log("isLoginStatus+--------------"+isLoginStatus);
       if (!isLoginStatus) {
         return;
       } else {

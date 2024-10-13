@@ -43,8 +43,6 @@ const password=ref("");
 function handleGetCaptcha() {
   if (!isDisabled.value) {
     GetGenerateAPI(username.value).then((res: any)=>{
-          console.log(res);
-          console.log(res.code);
           if ('0'==res.code) {
               captcha.value = res.data;
           // 设置按钮为不可点击
@@ -62,7 +60,6 @@ function handleGetCaptcha() {
               // 初始倒计时设置为60秒
               countdown.value = 10;
           } else {
-            console.log(res.data.message);
           }
         })
   }
@@ -74,11 +71,9 @@ function handleSubmit() {
   password: password.value
   });
   RegistAPI(user.value).then((res: any)=>{
-    console.log(res.code);
     if ('0'==res.code) {
       router.push('/login')
     } else {
-      console.log(res.message);
     }
   })  
 }

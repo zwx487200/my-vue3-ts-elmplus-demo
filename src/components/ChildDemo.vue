@@ -7,6 +7,7 @@
 const model = defineModel()
 
 function update() {
+  console.log('-')
   model.value++
 }
 </script>
