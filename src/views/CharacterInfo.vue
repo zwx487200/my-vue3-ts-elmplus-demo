@@ -7,7 +7,7 @@
     @submit.native.prevent
   >
     <el-form-item label="头像" :label-position="itemLabelPosition">
-      <HeadFileUpload limit=countModel v-model=fileList></HeadFileUpload>
+      <HeadFileUpload v-model=fileList></HeadFileUpload>
     </el-form-item>
     <el-form-item label="序号" :label-position="itemLabelPosition" v-show="!isadd">
       <el-input v-model="character.characterId" />
@@ -28,6 +28,7 @@ import type { FormItemProps, FormProps } from 'element-plus'
 import {GetCharacterAPI,AddCharacterAPI ,UpdateCharacterAPI} from "../request/api";
 import { useRoute } from 'vue-router';
 import type { UploadProps, UploadUserFile } from 'element-plus'
+import router from "../router";
 
 const character = ref({
   characterId: "",
@@ -42,7 +43,7 @@ const character = ref({
 }) 
 
 const isadd = ref(false);
-const countModel = ref(5);
+const limitcount = ref(1);
 const fileList = ref<UploadUserFile[]>([
   {
     name: '默认头像',
@@ -65,9 +66,10 @@ onMounted(() => {
         character.value.profilePicture = '../image/默认头像.jpeg';
       } else {
         // 如果存在头像，删除默认头像，添加用户头像
+        fileList.value.length=0;
         fileList.value = [{
           name: '用户头像',
-          url: require("../image/e5656579-2e08-4f26-ba03-69c49a75539b.jpg"),
+          url: require("../image/"+character.value.profilePicture),
         }];
       }
       //fileList.push(url: character.value.profilePicture);
@@ -87,13 +89,13 @@ const formLabelAlign = reactive({
   region: '',
   type: '',
 })
-
 const sure = () => {
   if (isadd.value){
-    // 新增
-    // TODO: 新增方法
+    character.value.profilePicture = fileList.value[0].url;
     AddCharacterAPI(character.value).then(response => {
       character.value = response.data[0];
+      // 跳转到列表页
+
     }).catch(error => {
       console.error("Error fetching character: ", error);
     });

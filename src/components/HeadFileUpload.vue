@@ -2,7 +2,7 @@
   <el-upload 
     action="http://localhost:8080/file/upload"
     :list-type="listType"
-    :limit='limit'
+    :limit="limit"
     :disabled="disabled"
     :data="paramData"
     v-model:file-list="fileList"
@@ -38,15 +38,15 @@
 
 <script lang="ts" setup>
 import { ref , onMounted} from 'vue'
-import { Delete, Download, Plus, ZoomIn } from '@element-plus/icons-vue'
+import { Delete, Plus, ZoomIn } from '@element-plus/icons-vue'
 import type { UploadFile } from 'element-plus'
 import type { UploadProps, UploadUserFile } from 'element-plus'
 import { ElMessage } from 'element-plus';
 const props = defineProps({
-  // 允许上传文件件的最大数量
+  // 上传数量限制
   limit:{
     type:Number,
-    default:5
+    default:1
   },
   // 是否禁用上传
   disabled:{
@@ -66,7 +66,7 @@ const props = defineProps({
 const fileList = ref<UploadUserFile[]>([
 ]);
 // 父节点传来的fileList
-const fileListFather = defineModel();
+const fileListFather = defineModel({type: Array});
 // 如果父节点传的是空，fileList不变，如果父节点传值，将fileList变更为fileListFather的值
 onMounted(() => {
   if (fileListFather.value) {
@@ -94,20 +94,24 @@ const handleAvatarSuccess: UploadProps['onSuccess'] = (
   response,
   uploadFile
 ) => {
-  // 上传头像成功后，将response里面返回的值添加到fileList里面
-  // todo 这边使用后端返回的url，会获取不到，前端上传文件的时候会生成一个blob:http://localhost:8081/***** 
-  // 这边不懂，但是又不能把前端这个blob的给后端
-  // 将这个值返回给父组件，再调用父组件接口保存
-  fileListFather.push({
+  debugger;
+  
+  fileList.value.length=0;
+  fileList.value.push({
+    name: response.name,
+    url: require('../image/'+ `${response.url}`),
+  })
+  fileListFather.value.length=0;
+  fileListFather.value.push({
     name: response.name,
     url: response.url,
   })
+
   // 移除默认头像
-  const defaultAvatar = fileList.value.find(f => f.name === '默认头像')
-  if (defaultAvatar) {
-    fileList.value = fileList.value.filter(f => f.name!== '默认头像')
-  }
-  //
+  // const defaultAvatar = fileList.value.find(f => f.name === '默认头像')
+  // if (defaultAvatar) {
+  //   fileList.value = fileList.value.filter(f => f.name!== '默认头像')
+  // }
 }
 
 const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
