@@ -9,6 +9,15 @@
   import router from "./router";
   import {RegistAPI,LogInAPI,GetGenerateAPI,LogOutAPI} from "./request/api";
   import { useStore, mapState } from "vuex";
+  import { debounce } from "lodash";
+  const _ = (window as any).ResizeObserver;
+    (window as any).ResizeObserver = class ResizeObserver extends _ {
+      constructor(callback: (...args: any[]) => void) {
+        callback = debounce(callback, 100);
+        super(callback);
+      }
+    };
+
   
   const store = useStore();
   
@@ -55,5 +64,6 @@
       });
     }
     };
+    
 </script>
 

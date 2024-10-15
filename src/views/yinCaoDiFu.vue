@@ -57,11 +57,13 @@
 
 
 <script lang="ts" setup>
-import {GetCharacterListAPI } from "../request/api";
+import {GetCharacterListAPI,DeleteCharacterAPI } from "../request/api";
 import { ref , onMounted} from 'vue';
 import { Delete, Edit, Search, Share, Upload } from '@element-plus/icons-vue'
 import type { ComponentSize } from 'element-plus'
 import router from "../router";
+import { ElMessage, ElMessageBox } from 'element-plus'
+
 
 
 const size = ref<ComponentSize>('default')
@@ -133,6 +135,30 @@ const updateCharacterInfo = (row:any) => {
 }
 
 const deleteCharacterInfo = (row:any) => { 
+  ElMessageBox.confirm(
+    '该操作会永久删除该角色，是否确定删除?',
+    'Warning',
+    {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning',
+    }
+  )
+    .then(() => {
+      DeleteCharacterAPI(row.characterId).then(response => {
+        if(0==response.code){
+          GetCharacter();
+        }
+      }).catch(error => {
+        console.error("Error fetching character: ", error);
+      });
+    })
+    .catch(() => {
+      ElMessage({
+        type: 'info',
+        message: 'Delete canceled',
+      })
+    })
 }
 
 </script>

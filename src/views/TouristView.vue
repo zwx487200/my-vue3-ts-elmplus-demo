@@ -25,18 +25,16 @@
             <el-row class="tac">
               <el-col :span="12">
                 <el-menu default-active="2" class="el-menu-vertical-demo, menuclass" :router="true" >
-                  <el-menu-item index="1">
-                    <template #title>
-                      <span>阴曹地府</span>
-                    </template>
+                  <el-menu-item index="YinCaoDiFu">
+                    <span>阴曹地府</span>
                   </el-menu-item>
-                  <el-menu-item index="2">
+                  <el-menu-item index="ChengHuangMiao">
                     <span>城隍庙</span>
                   </el-menu-item>
-                  <el-menu-item index="3">
+                  <el-menu-item index="naiheqiao">
                     <span>奈何桥</span>
                   </el-menu-item>
-                  <el-menu-item index="4">
+                  <!-- <el-menu-item index="4">
                     <span>阎王殿</span>
                   </el-menu-item>
                   <el-menu-item index="5">
@@ -122,7 +120,7 @@
                       <el-menu-item index="11-6-10">鱼鳃</el-menu-item>
                       <el-menu-item index="11-6-11">黄蜂</el-menu-item>
                     </el-sub-menu>
-                  </el-sub-menu>
+                  </el-sub-menu> -->
                 </el-menu>
               </el-col>
             </el-row>

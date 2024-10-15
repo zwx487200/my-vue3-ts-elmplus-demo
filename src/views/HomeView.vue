@@ -5,7 +5,7 @@
       <button @click="goTologin">登录</button>
       <button @click="goToRegister">还没有账号？去注册</button>
       <button @click="goToSeeSee">我是游客，随便看看</button>
-    </div>
+    </div> 
   </div>
 </template>
 

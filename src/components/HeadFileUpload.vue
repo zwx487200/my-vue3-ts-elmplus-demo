@@ -103,15 +103,11 @@ const handleAvatarSuccess: UploadProps['onSuccess'] = (
   // todo 这边使用后端返回的url，会获取不到，前端上传文件的时候会生成一个blob:http://localhost:8081/***** 
   // 这边不懂，但是又不能把前端这个blob的给后端
   // 将这个值返回给父组件，再调用父组件接口保存
-  console.log(response);
   fileListFather.value.length= 0;
-  console.log("*******************"+fileListFather);
-
   fileListFather.value.push({
-    name: response.data.name,
-    url: response.data.url,
+    name: response.name,
+    url: response.url,
   })
-  console.log("*******************"+fileListFather.value[0].url);
 
 
   // 移除默认头像

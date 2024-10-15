@@ -17,7 +17,7 @@ import wangxiangtai from "../views/wangxiangtai.vue";
 import yanwangdian from "../views/yanwangdian.vue";
 import characterInfo from "../views/CharacterInfo.vue";
 import HeadFileUpload from "../views/HeadFileUpload.vue";
-import FatherDemo from "../views/FatherDemo.vue";
+import EcharsDemo from "@/views/EcharsDemo.vue";
 
 
 const routes: Array<RouteRecordRaw> = [
@@ -29,7 +29,7 @@ const routes: Array<RouteRecordRaw> = [
   { path: "/characterInfo/:id/:operate", name: "characterInfo", component: characterInfo, },
   { path: "/characterInfo/:operate", name: "addCharacterInfo", component: characterInfo, },
   // { path: "/headFileUpload", name: "headFileUpload", component: HeadFileUpload, },
-  { path: "/FatherDemo", name: "fatherDemo", component: FatherDemo },
+  { path: "/EcharsDemo", name: "EcharsDemo", component: EcharsDemo },
   {
     path: "/tourist",
     name: "tourist",
@@ -37,7 +37,7 @@ const routes: Array<RouteRecordRaw> = [
     children:
       [
         {
-          path: "/1",
+          path: "/YinCaoDiFu",
           name: "YinCaoDiFu",
           component: YinCaoDiFu,
           meta: {
@@ -45,7 +45,7 @@ const routes: Array<RouteRecordRaw> = [
           }
         },
         {
-          path: "/2",
+          path: "/ChengHuangMiao",
           name: "ChengHuangMiao",
           component: ChengHuangMiao,
           meta: {
@@ -53,7 +53,7 @@ const routes: Array<RouteRecordRaw> = [
           }
         },
         {
-          path: "/3",
+          path: "/naiheqiao",
           name: "naiheqiao",
           component: naiheqiao,
           meta: {

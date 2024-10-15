@@ -78,12 +78,12 @@ export const GetCharacterAPI = (data: ReqCharacter): Res<ReqCharacter> =>
 export const UpdateCharacterAPI = (data: ReqCharacter): Res<ReqCharacter> =>
   instance.post("/character/updateCharacter", data);
 
-export const DeleteCharacterAPI = (data: ReqCharacter): Res<ReqCharacter> =>
+export const DeleteCharacterAPI = (data: string): Res<ReqCharacter> =>
   instance.post("/character/deleteCharacter", data);
 
 export const AddCharacterAPI = (data: ReqCharacter): Res<ReqCharacter> =>
   instance.post("/character/saveCharacter", data);
 
-  
+
 
 // export const FileUploadAPI = 

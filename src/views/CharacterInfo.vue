@@ -9,8 +9,8 @@
     <el-form-item label="头像" :label-position="itemLabelPosition">
       <HeadFileUpload limit="1" v-model="fileList" ></HeadFileUpload>
     </el-form-item>
-    <el-form-item label="序号" :label-position="itemLabelPosition" v-show="!isadd">
-      <el-input v-model="character.characterId" />
+    <el-form-item label="序号" :label-position="itemLabelPosition" v-show="!isadd" >
+      <el-input disabled='type.value=="update"' v-model="character.characterId" />
     </el-form-item>
     <el-form-item label="名字" :label-position="itemLabelPosition">
       <el-input v-model="character.name" />
@@ -23,11 +23,13 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref ,onMounted,onBeforeMount} from 'vue'
+import { reactive, ref ,onMounted} from 'vue'
 import type { FormItemProps, FormProps } from 'element-plus'
 import {GetCharacterAPI,AddCharacterAPI } from "../request/api";
 import { useRoute } from 'vue-router';
-import type { UploadProps, UploadUserFile } from 'element-plus'
+import type {UploadUserFile } from 'element-plus';
+import router from "../router";
+
 
 const character = ref({
   characterId: "",
@@ -49,9 +51,6 @@ const fileList = ref<UploadUserFile[]>([
 ]);
 
 const isadd = ref(false);
-
-const countModel1 = ref(5);
-
 const type = ref("query")
 
 onMounted(() => {
@@ -59,29 +58,20 @@ onMounted(() => {
   const route = useRoute();
   type.value = route.params.operate;
   if (type.value != 'add') {
-    console.log("我是云南的云南庐江的" + route.params.id);
     character.value.characterId = String(route.params.id);
     GetCharacterAPI(character.value).then(response => {
-      console.log("response.data: ", response.data);
       character.value = response.data[0];
       if(character.value.profilePicture!="" || character.value.profilePicture !=null){
         fileList.value.length = 0;
-        console.log("+++++++++++++"+character.value.profilePicture)
-       
         fileList.value.push({
           name: character.value.profilePicture,
-          // url: require(character.value.profilePicture),
           url: require('.././image/'+`${character.value.profilePicture}`),
         })
-        console.log("33333333333333"+fileList.value[0])
-
       }
-      console.log("response.data: ", response.data);
     }).catch(error => {
       console.error("Error fetching character: ", error);
     });
   } else{
-     console.log("我是添加的添加的");
      isadd.value= true;
   }
 })
@@ -95,31 +85,18 @@ const formLabelAlign = reactive({
 })
 
 const sure = () => {
-  console.log(character.value);
-  if (isadd.value){
+  if (isadd.value || type.value=="update"){
     // 新增
     // TODO: 新增方法
-    console.log()
     character.value.profilePicture = fileList.value[0].url;
     AddCharacterAPI(character.value).then(response => {
-      console.log("response.data: ", response.data);
       character.value = response.data;
-      console.log("response.data: ", character.value);
+      if(0==response.code){
+        router.push('/YinCaoDiFu');
+      }
     }).catch(error => {
       console.error("Error fetching character: ", error);
     });
-  } else{
-    // 编辑
-    // TODO: 编辑方法
-    console.log("我是编辑的编辑的");
-    console.log(character.value);
-    // EditCharacterAPI(character.value).then(response => {
-    //   console.log("response.data: ", response.data);
-    //   character.value = response.data[0];
-    //   console.log("response.data: ", response.data);
-    // }).catch(error => {
-    //   console.error("Error fetching character: ", error);
-    // });
-  }
+  } 
 }
 </script>
