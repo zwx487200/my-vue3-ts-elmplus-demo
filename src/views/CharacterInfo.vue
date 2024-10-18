@@ -7,10 +7,10 @@
     @submit.native.prevent
   >
     <el-form-item label="头像" :label-position="itemLabelPosition">
-      <HeadFileUpload limit="1" v-model="fileList" ></HeadFileUpload>
+      <HeadFileUpload v-model="fileList" ></HeadFileUpload>
     </el-form-item>
     <el-form-item label="序号" :label-position="itemLabelPosition" v-show="!isadd" >
-      <el-input disabled='type.value=="update"' v-model="character.characterId" />
+      <el-input  disabled v-model="character.characterId" />
     </el-form-item>
     <el-form-item label="名字" :label-position="itemLabelPosition">
       <el-input v-model="character.name" />
@@ -23,7 +23,8 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, ref ,onMounted} from 'vue'
+import { reactive, ref ,onMounted,onBeforeMount} from 'vue'
+import { genFileId, ElMessage} from 'element-plus'
 import type { FormItemProps, FormProps } from 'element-plus'
 import {GetCharacterAPI,AddCharacterAPI } from "../request/api";
 import { useRoute } from 'vue-router';
@@ -50,11 +51,14 @@ const fileList = ref<UploadUserFile[]>([
   }
 ]);
 
-const isadd = ref(false);
-const type = ref("query")
+const isadd = ref<Boolean>(false);
+const isupadte = ref<Boolean>(false);;
+const type = ref<string>("query");
+const limit = ref<number>(1);
 
 onMounted(() => {
   // 查询详情
+  console.log("我被触发了")
   const route = useRoute();
   type.value = route.params.operate;
   if (type.value != 'add') {
@@ -65,7 +69,7 @@ onMounted(() => {
         fileList.value.length = 0;
         fileList.value.push({
           name: character.value.profilePicture,
-          url: require('.././image/'+`${character.value.profilePicture}`),
+          url: require(`.././image/${character.value.profilePicture}`),
         })
       }
     }).catch(error => {
@@ -86,9 +90,7 @@ const formLabelAlign = reactive({
 
 const sure = () => {
   if (isadd.value || type.value=="update"){
-    // 新增
-    // TODO: 新增方法
-    character.value.profilePicture = fileList.value[0].url;
+    character.value.profilePicture = fileList.value[0].url  || fileList.value[0].response.url;
     AddCharacterAPI(character.value).then(response => {
       character.value = response.data;
       if(0==response.code){
@@ -97,6 +99,12 @@ const sure = () => {
     }).catch(error => {
       console.error("Error fetching character: ", error);
     });
-  } 
+  } else{
+    ElMessage({
+    message: '修改页面,您的改动不会被保存',
+    type: 'warning',
+    })
+    router.push('/YinCaoDiFu');
+  }
 }
 </script>

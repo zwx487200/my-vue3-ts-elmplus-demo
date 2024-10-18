@@ -18,6 +18,8 @@ import yanwangdian from "../views/yanwangdian.vue";
 import characterInfo from "../views/CharacterInfo.vue";
 import HeadFileUpload from "../views/HeadFileUpload.vue";
 import EcharsDemo from "@/views/EcharsDemo.vue";
+import ParentComponent from "../views/ParentComponent.vue"
+import fileUpload from "../views/fileUpload.vue"
 
 
 const routes: Array<RouteRecordRaw> = [
@@ -29,6 +31,9 @@ const routes: Array<RouteRecordRaw> = [
   { path: "/characterInfo/:id/:operate", name: "characterInfo", component: characterInfo, },
   { path: "/characterInfo/:operate", name: "addCharacterInfo", component: characterInfo, },
   // { path: "/headFileUpload", name: "headFileUpload", component: HeadFileUpload, },
+  { path: "/ParentComponent", name: "ParentComponent", component: ParentComponent, },
+  { path: "/fileUpload", name: "fileUpload", component: fileUpload, },
+
   { path: "/EcharsDemo", name: "EcharsDemo", component: EcharsDemo },
   {
     path: "/tourist",

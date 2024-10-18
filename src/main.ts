@@ -10,6 +10,7 @@ import BasicLineChart from "@/components/BasicLineChart.vue";
 import BasicBarChart from "@/components/BasicBarChart.vue";
 import BasicPieChart from "@/components/BasicPieChart.vue";
 import BasicRingChart from "@/components/BasicRingChart.vue";
+import ChildComponent from "@/components/ChildComponent.vue";
 
 
 const app = createApp(App);
@@ -18,6 +19,8 @@ app.component("BasicLineChart", BasicLineChart);
 app.component("BasicBarChart", BasicBarChart);
 app.component("BasicPieChart", BasicPieChart);
 app.component("BasicRingChart", BasicRingChart);
+app.component("ChildComponent", ChildComponent);
+
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component);
 }
