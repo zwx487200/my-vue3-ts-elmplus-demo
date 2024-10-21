@@ -5,10 +5,10 @@
 </template>
 
 <script lang="ts" setup>
-  import {defineComponent, onMounted, onUnmounted, ref } from 'vue';
+  import { onMounted, onUnmounted, ref } from 'vue';
   import router from "./router";
-  import {RegistAPI,LogInAPI,GetGenerateAPI,LogOutAPI} from "./request/api";
-  import { useStore, mapState } from "vuex";
+  import { LogOutAPI } from "./request/api";
+  import { useStore } from "vuex";
   import { debounce } from "lodash";
   const _ = (window as any).ResizeObserver;
     (window as any).ResizeObserver = class ResizeObserver extends _ {

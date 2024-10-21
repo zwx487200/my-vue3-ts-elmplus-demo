@@ -32,13 +32,12 @@
   </el-upload>
 
   <el-dialog v-model="dialogVisible">
-    <!-- <img w-full :src="dialogImageUrl" alt="Preview Image" /> -->
     <img w-full :src="dialogImageUrl" alt="Preview Image" style="max-width:100%; max-height:100%;" />
   </el-dialog>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { Delete, Plus, ZoomIn } from '@element-plus/icons-vue'
 import { genFileId, ElMessage} from 'element-plus'
 import type { UploadFile, UploadInstance, UploadProps, UploadRawFile,UploadUserFile,UploadFiles } from 'element-plus'
@@ -71,6 +70,8 @@ const dialogImageUrl = ref('')
 const dialogVisible = ref(false)
 const disabled = ref(false)
 const upload = ref<UploadInstance>()
+
+// fileList的意义不大，单纯为了使有初始头像展示，
 const fileList = ref<UploadUserFile[]>([
   {
     name:"默认头像",
@@ -78,6 +79,14 @@ const fileList = ref<UploadUserFile[]>([
   }
 ]);
 
+// 定义一个父节点传来的值，如果这个值不为空，将fileList里面的值替换为父节点传来的值
+const fatherFileList = defineModel({type:Array})
+
+onMounted(() => {
+  if (fatherFileList.value) {
+    fileList.value = fatherFileList.value;
+  }
+})
 
 const handleRemove = (file: UploadFile) => {
   debugger;
@@ -105,7 +114,7 @@ const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
 // 超过limit的时候会触发的方法
 const handleExceed: UploadProps['onExceed'] = (files) => {
   console.log(files)
-  upload.value!.clearFiles()
+  //upload.value!.clearFiles()
   const file = files[0] as UploadRawFile
   file.uid = genFileId()
   upload.value!.handleStart(file);
@@ -123,6 +132,11 @@ const handleAvatarSuccess: UploadProps['onSuccess'] = (response: any, uploadFile
   }
   // 需要将uploadFile的值赋值到fileList里面
   fileList.value.push(uploadFile as UploadUserFile);
+  if (fileList.value.length > props.limit) {
+    uploadFiles.shift();
+    fileList.value.shift();
+    console.log(fileList.value)
+    }
 }
 </script> 
 

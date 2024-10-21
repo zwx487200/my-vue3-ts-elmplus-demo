@@ -16,6 +16,8 @@ import wangsicheng from "../views/wangsicheng.vue";
 import wangxiangtai from "../views/wangxiangtai.vue";
 import yanwangdian from "../views/yanwangdian.vue";
 import characterInfo from "../views/CharacterInfo.vue";
+import characterInfodemo from "../views/CharacterInfodemo.vue";
+
 import HeadFileUpload from "../views/HeadFileUpload.vue";
 import EcharsDemo from "@/views/EcharsDemo.vue";
 import ParentComponent from "../views/ParentComponent.vue"
@@ -30,6 +32,8 @@ const routes: Array<RouteRecordRaw> = [
   { path: "/userInfo", name: "userInfo", component: UserInfoView, },
   { path: "/characterInfo/:id/:operate", name: "characterInfo", component: characterInfo, },
   { path: "/characterInfo/:operate", name: "addCharacterInfo", component: characterInfo, },
+  { path: "/characterInfodemo", name: "characterInfodemo", component: characterInfodemo, },
+
   // { path: "/headFileUpload", name: "headFileUpload", component: HeadFileUpload, },
   { path: "/ParentComponent", name: "ParentComponent", component: ParentComponent, },
   { path: "/fileUpload", name: "fileUpload", component: fileUpload, },

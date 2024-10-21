@@ -1,25 +1,9 @@
 <template>
-  <el-form
-    :label-position="labelPosition"
-    label-width="auto"
-    :model="formLabelAlign"
-    style="max-width: 600px"
-    @submit.native.prevent
-  >
-    <el-form-item label="头像" :label-position="itemLabelPosition">
-      <HeadFileUpload :limit="limit" v-model="fileList" ></HeadFileUpload>
-    </el-form-item>
-    <el-form-item label="序号" :label-position="itemLabelPosition" v-show="!isadd" >
-      <el-input  disabled v-model="character.characterId" />
-    </el-form-item>
-    <el-form-item label="名字" :label-position="itemLabelPosition" :required="true">
-      <el-input v-model="character.name"  placeholder="请输入"  clearable maxlength="60" show-word-limit/>
-    </el-form-item>
-    <el-form-item label="描述" :label-position="itemLabelPosition" :required="true">
-      <el-input v-model="character.introduction" placeholder="请输入" clearable maxlength="600" show-word-limit/>
-    </el-form-item>
-     <el-button @click="sure">确定 </el-button>
-  </el-form>
+    <HeadFileUpload :limit=1 v-model="fileList" ></HeadFileUpload>
+    <el-input  disabled v-model="character.characterId" />
+    <el-input v-model="character.name"  placeholder="请输入"  clearable maxlength="60" show-word-limit/>
+    <el-input v-model="character.introduction" placeholder="请输入" clearable maxlength="600" show-word-limit/>
+    <el-button @click="sure">确定 </el-button>
 </template>
 
 <script lang="ts" setup>
@@ -59,16 +43,16 @@ onMounted(() => {
   // 查询详情
   console.log("我被触发了")
   const route = useRoute();
-  type.value = route.params.operate as string;
+  type.value = 'update';
   if (type.value != 'add') {
-    character.value.characterId = String(route.params.id);
+    character.value.characterId = 'dd324a45-8de7-11ef-b781-0433c2ef0c6c';
     GetCharacterAPI(character.value).then(response => {
       character.value = response.data[0];
       if(character.value.profilePicture!="" || character.value.profilePicture !=null){
         fileList.value.length = 0;
         fileList.value.push({
           name: character.value.profilePicture,
-          url: require(`.././image/${character.value.profilePicture}`),
+          url: require(`.././image/9ea51bdf-d5bc-490c-a999-90e312ac731d.jpg`),
         })
       }
     }).catch(error => {
@@ -77,14 +61,6 @@ onMounted(() => {
   } else{
      isadd.value= true;
   }
-})
-
-const labelPosition = ref<FormProps['labelPosition']>('right')
-const itemLabelPosition = ref<FormItemProps['labelPosition']>('')
-const formLabelAlign = reactive({
-  name: '',
-  region: '',
-  type: '',
 })
 
 const sure = () => {
